@@ -22,11 +22,11 @@ namespace server_api_lib
     std::random_device r;
     dto::RoboticArmState state;
     state.jointAngles.reserve(kDOF);
-    for (auto &&i : vw::iota(0u, state.jointAngles.size()))
+    for (auto &&_ : vw::iota(0u, kDOF))
     {
-      state.jointAngles[i] =
+      state.jointAngles.push_back(
           360.0 * (static_cast<double>(r()) / static_cast<double>(r.max())) -
-          180.0;
+          180.0);
     }
     return state;
   }
