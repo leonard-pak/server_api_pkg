@@ -11,10 +11,10 @@ namespace server_api_lib
     return point.z == 0;
   }
 
-  dto::TwoWheelsRobot TwoWheelRobotController::GetStateCall()
+  dto::TwoWheelsRobotState TwoWheelRobotController::GetStateCall()
   {
     std::random_device r;
-    dto::TwoWheelsRobot state;
+    dto::TwoWheelsRobotState state;
     state.leftWheelVelocity =
         static_cast<double>(r()) / static_cast<double>(r.max()) - 0.5;
     state.rightWheelVelocity =

@@ -20,7 +20,8 @@ namespace server_api_lib
   dto::RoboticArmState RoboticArmController::GetStateCall()
   {
     std::random_device r;
-    dto::RoboticArmState state(kDOF);
+    dto::RoboticArmState state;
+    state.jointAngles.reserve(kDOF);
     for (auto &&i : vw::iota(0u, state.jointAngles.size()))
     {
       state.jointAngles[i] =

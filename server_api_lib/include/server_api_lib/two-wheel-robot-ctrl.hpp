@@ -7,12 +7,12 @@
 namespace server_api_lib
 {
   class TwoWheelRobotController
-      : public interface::IController<dto::TwoWheelsRobot>
+      : public interface::IController<dto::TwoWheelsRobotState>
   {
   private:
   public:
     bool GoToPointCall(dto::Point3D point) override;
-    dto::TwoWheelsRobot GetStateCall() override;
+    dto::TwoWheelsRobotState GetStateCall() override;
   };
 } // namespace server_api_lib
 

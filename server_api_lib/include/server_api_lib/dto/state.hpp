@@ -1,5 +1,5 @@
-#ifndef SERVER_API_LIB_STATE_HPP
-#define SERVER_API_LIB_STATE_HPP
+#ifndef SERVER_API_LIB_DTO_STATE_HPP
+#define SERVER_API_LIB_DTO_STATE_HPP
 
 #include <vector>
 
@@ -7,12 +7,10 @@ namespace server_api_lib::dto
 {
   struct RoboticArmState
   {
-    RoboticArmState() = default;
-    explicit RoboticArmState(size_t dof) : jointAngles(dof, 0.0){};
     std::vector<double> jointAngles;
   };
 
-  struct TwoWheelsRobot
+  struct TwoWheelsRobotState
   {
     double leftWheelVelocity;
     double rightWheelVelocity;
@@ -20,4 +18,4 @@ namespace server_api_lib::dto
 
 } // namespace server_api_lib::dto
 
-#endif // SERVER_API_LIB_STATE_HPP
+#endif // SERVER_API_LIB_DTO_STATE_HPP
