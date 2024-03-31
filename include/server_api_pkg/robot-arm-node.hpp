@@ -18,10 +18,9 @@ namespace server_api_pkg
     ros::Timer mTimer;
 
   public:
-    RoboticArmNode();
+    RoboticArmNode(std::string const &stateTopic,
+                   std::string const &goToPointSevice);
     ~RoboticArmNode() = default;
-
-    /* public members */
   };
 
 } // namespace server_api_pkg

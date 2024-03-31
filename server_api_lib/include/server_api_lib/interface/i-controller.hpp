@@ -23,8 +23,9 @@ namespace server_api_lib::interface
   {
   public:
     typedef C state_t;
+    virtual ~IController() = default;
     // API call for going to point
-    virtual bool GoToPointCall(dto::Point3D point) = 0;
+    virtual bool GoToPointCall(dto::Point3D const &point) = 0;
     // API call for getting current robot state
     virtual C GetStateCall() = 0;
   };

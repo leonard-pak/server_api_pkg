@@ -1,0 +1,13 @@
+<launch>
+
+<group ns="robot">
+
+<param name="state_topic" value="state" />
+<param name="go_to_point_service" value="go_to_point" />
+
+<node pkg="server_api_pkg" type="robotic_arm_node" name="robotic_arm_node" output="screen"/>
+<node pkg="server_api_pkg" type="two_wheel_robot_node" name="two_wheel_robot_node" output="screen"/>
+</group>
+
+
+</launch>

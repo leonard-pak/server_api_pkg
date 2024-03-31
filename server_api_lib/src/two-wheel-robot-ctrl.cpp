@@ -5,7 +5,7 @@
 
 namespace server_api_lib
 {
-  bool TwoWheelRobotController::GoToPointCall(dto::Point3D point)
+  bool TwoWheelRobotController::GoToPointCall(dto::Point3D const &point)
   {
     // mock check and api call
     return point.z == 0;

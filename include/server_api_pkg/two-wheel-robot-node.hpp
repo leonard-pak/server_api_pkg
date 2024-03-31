@@ -19,10 +19,9 @@ namespace server_api_pkg
     ros::Timer mTimer;
 
   public:
-    TwoWheelRobotNode();
+    TwoWheelRobotNode(std::string const &stateTopic,
+                      std::string const &goToPointSevice);
     ~TwoWheelRobotNode() = default;
-
-    /* public members */
   };
 
 } // namespace server_api_pkg

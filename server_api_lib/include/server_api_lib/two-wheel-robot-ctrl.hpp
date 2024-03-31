@@ -11,7 +11,7 @@ namespace server_api_lib
   {
   private:
   public:
-    bool GoToPointCall(dto::Point3D point) override;
+    bool GoToPointCall(dto::Point3D const &point) override;
     dto::TwoWheelsRobotState GetStateCall() override;
   };
 } // namespace server_api_lib

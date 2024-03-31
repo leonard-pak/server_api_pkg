@@ -8,17 +8,18 @@
 namespace server_api_pkg
 {
   namespace m_s = common_msgs_srvs;
-  TwoWheelRobotNode::TwoWheelRobotNode()
+  TwoWheelRobotNode::TwoWheelRobotNode(std::string const &stateTopic,
+                                       std::string const &goToPointSevice)
       : mTwoWheelRobot(
             std::make_unique<server_api_lib::TwoWheelRobotController>()),
-        mNode("robots/two_wheel"),
-        mPublisher(mNode.advertise<m_s::TwoWheelRobotState>("state", 1000)),
+        mNode("~"),
+        mPublisher(mNode.advertise<m_s::TwoWheelRobotState>(stateTopic, 1000)),
         mService(mNode.advertiseService<m_s::GoToPoint::Request,
                                         m_s::GoToPoint::Response>(
-            "go_to_point",
+            goToPointSevice,
             [this](m_s::GoToPoint::Request &req, m_s::GoToPoint::Response &res)
             {
-              ROS_INFO_STREAM("GoToPoint from two wheel robot call");
+              ROS_INFO_STREAM("[two wheel robot] GoToPoint call");
               res.success = mTwoWheelRobot.GoToPoint(
                   {.x = req.target.x, .y = req.target.y, .z = req.target.z});
               return true;
@@ -27,7 +28,7 @@ namespace server_api_pkg
             ros::Duration(1),
             [this](const ros::TimerEvent &)
             {
-              ROS_INFO_STREAM("GetStatus from two wheel robot call");
+              ROS_DEBUG_STREAM("[two wheel robot] GetState call");
               auto state = mTwoWheelRobot.GetState();
               m_s::TwoWheelRobotState msg;
               msg.leftWheelVelocity = state.leftWheelVelocity;
@@ -41,7 +42,9 @@ namespace server_api_pkg
 int main(int argc, char **argv)
 {
   ros::init(argc, argv, "two_wheel_robot");
-  server_api_pkg::TwoWheelRobotNode robot;
+  server_api_pkg::TwoWheelRobotNode robot(
+      ros::param::param<std::string>("state_topic", "state"),
+      ros::param::param<std::string>("go_to_point_service", "go_to_point"));
   ros::spin();
   return 0;
 }

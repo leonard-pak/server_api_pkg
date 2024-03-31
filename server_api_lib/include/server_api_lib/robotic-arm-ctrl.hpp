@@ -16,7 +16,7 @@ namespace server_api_lib
     RoboticArmController(size_t dof);
     ~RoboticArmController() = default;
 
-    bool GoToPointCall(dto::Point3D point) override;
+    bool GoToPointCall(dto::Point3D const &point) override;
     dto::RoboticArmState GetStateCall() override;
   };
 } // namespace server_api_pkg

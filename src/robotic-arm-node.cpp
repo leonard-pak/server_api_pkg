@@ -8,16 +8,17 @@
 namespace server_api_pkg
 {
   namespace m_s = common_msgs_srvs;
-  RoboticArmNode::RoboticArmNode()
+  RoboticArmNode::RoboticArmNode(std::string const &stateTopic,
+                                 std::string const &goToPointSevice)
       : mRoboticArm(std::make_unique<server_api_lib::RoboticArmController>(6)),
-        mNode("robots/arm"),
-        mPublisher(mNode.advertise<std_msgs::Float64MultiArray>("state", 1000)),
+        mNode("~"), mPublisher(mNode.advertise<std_msgs::Float64MultiArray>(
+                        stateTopic, 1000)),
         mService(mNode.advertiseService<m_s::GoToPoint::Request,
                                         m_s::GoToPoint::Response>(
-            "go_to_point",
+            goToPointSevice,
             [this](m_s::GoToPoint::Request &req, m_s::GoToPoint::Response &res)
             {
-              ROS_INFO_STREAM("GoToPoint from robotic arm call");
+              ROS_DEBUG_STREAM("[robotic arm] GoToPoint call");
               res.success = mRoboticArm.GoToPoint(
                   {.x = req.target.x, .y = req.target.y, .z = req.target.z});
               return true;
@@ -25,8 +26,8 @@ namespace server_api_pkg
         mTimer(mNode.createTimer(ros::Duration(1),
                                  [this](const ros::TimerEvent &)
                                  {
-                                   ROS_INFO_STREAM(
-                                       "GetStatus from robotic arm call");
+                                   ROS_DEBUG_STREAM(
+                                       "[robotic arm] GetState call");
                                    auto state = mRoboticArm.GetState();
                                    std_msgs::Float64MultiArray msg;
                                    msg.data = state.jointAngles;
@@ -39,7 +40,10 @@ namespace server_api_pkg
 int main(int argc, char **argv)
 {
   ros::init(argc, argv, "robotic_arm");
-  server_api_pkg::RoboticArmNode robot;
+
+  server_api_pkg::RoboticArmNode robot(
+      ros::param::param<std::string>("state_topic", "state"),
+      ros::param::param<std::string>("go_to_point_service", "go_to_point"));
   ros::spin();
   return 0;
 }

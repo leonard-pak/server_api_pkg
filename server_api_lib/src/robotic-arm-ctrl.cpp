@@ -11,7 +11,7 @@ namespace server_api_lib
 
   RoboticArmController::RoboticArmController(size_t dof) : kDOF(dof){};
 
-  bool RoboticArmController::GoToPointCall(dto::Point3D point)
+  bool RoboticArmController::GoToPointCall(dto::Point3D const &point)
   {
     // mock check and api call
     return (point.x + point.y + point.z) > 1000.0 == 0;

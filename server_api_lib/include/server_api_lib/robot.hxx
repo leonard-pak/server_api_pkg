@@ -43,7 +43,7 @@ namespace server_api_lib
       mRecvStateThread.join();
     }
 
-    bool GoToPoint(dto::Point3D point)
+    bool GoToPoint(dto::Point3D const &point)
     {
       return mController->GoToPointCall(point);
     }
