@@ -22,7 +22,7 @@ namespace server_api_lib
     std::thread mRecvStateThread;
 
   public:
-    Robot(std::unique_ptr<C> ctrl)
+    explicit Robot(std::unique_ptr<C> ctrl)
         : mController(std::move(ctrl)),
           mRecvStateThread(
               [this]()

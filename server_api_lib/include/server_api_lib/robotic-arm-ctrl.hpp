@@ -13,7 +13,7 @@ namespace server_api_lib
     size_t const kDOF;
 
   public:
-    RoboticArmController(size_t dof);
+    explicit RoboticArmController(size_t dof);
     ~RoboticArmController() = default;
 
     bool GoToPointCall(dto::Point3D const &point) override;
