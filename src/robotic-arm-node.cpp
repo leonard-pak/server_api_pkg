@@ -18,7 +18,7 @@ namespace server_api_pkg
             goToPointSevice,
             [this](m_s::GoToPoint::Request &req, m_s::GoToPoint::Response &res)
             {
-              ROS_DEBUG_STREAM("[robotic arm] GoToPoint call");
+              ROS_INFO_STREAM("[robotic arm] GoToPoint call");
               res.success = mRoboticArm.GoToPoint(
                   {.x = req.target.x, .y = req.target.y, .z = req.target.z});
               return true;
